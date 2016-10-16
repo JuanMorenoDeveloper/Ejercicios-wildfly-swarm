@@ -34,6 +34,7 @@ PUT “/”, Actualiza objeto en la lista, se envía parámetro de formulario �
 	Respuesta: Actualizado correctamente
 
 DELETE “/{id}”, Borrar objeto con id especificado, ejemplo
+	
 	Petición DELETE: http://localhost:8080/v1/libro/1
 	Respuesta: Borrado correctamente
 
