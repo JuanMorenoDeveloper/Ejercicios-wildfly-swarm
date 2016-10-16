@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.xml.rpc.ServiceException;
 
 import com.google.gson.Gson;
 
@@ -36,14 +37,14 @@ public class CategoriaEndpoint {
 	@GET
 	@Path("/{id: \\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public CategoriaDto getPersonaById(@PathParam("id") Long id) {
+	public CategoriaDto getPersonaById(@PathParam("id") Long id) throws ServiceException {
 		return categoriaService.findById(id);
 	}
 
 	@POST
 	@Path("/")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getPersonaById(@FormParam("categoria") String categoriaString) {
+	public String getPersonaById(@FormParam("categoria") String categoriaString) throws ServiceException {
 		Gson gson = new Gson();
 		CategoriaDto categoriaDto = gson.fromJson(categoriaString, CategoriaDto.class);
 		categoriaService.save(categoriaDto);
@@ -53,7 +54,7 @@ public class CategoriaEndpoint {
 	@PUT
 	@Path("/")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String update(@FormParam("categoria") String categoriaString) {
+	public String update(@FormParam("categoria") String categoriaString) throws ServiceException {
 		Gson gson = new Gson();
 		CategoriaDto categoriaDto = gson.fromJson(categoriaString, CategoriaDto.class);
 		categoriaService.update(categoriaDto);
@@ -63,7 +64,7 @@ public class CategoriaEndpoint {
 	@DELETE
 	@Path("/{id: \\d+}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteById(@PathParam("id") Long id) {
+	public String deleteById(@PathParam("id") Long id) throws ServiceException {
 		categoriaService.deleteById(id);
 		return "Borrado correctamente";
 	}

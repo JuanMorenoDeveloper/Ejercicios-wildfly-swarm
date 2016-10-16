@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 
 import uy.edu.ude.dto.LibroDto;
+import uy.edu.ude.exception.ServiceException;
 import uy.edu.ude.service.LibroService;
 
 @Path("/v1/libro")
@@ -36,14 +37,14 @@ public class LibroEndpoint {
 	@GET
 	@Path("/{id: \\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public LibroDto getPersonaById(@PathParam("id") Long id) {
+	public LibroDto getPersonaById(@PathParam("id") Long id) throws ServiceException {
 		return libroService.findById(id);
 	}
 
 	@POST
 	@Path("/")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getPersonaById(@FormParam("libro") String libroString) {
+	public String getPersonaById(@FormParam("libro") String libroString) throws ServiceException {
 		Gson gson = new Gson();
 		LibroDto libroDto = gson.fromJson(libroString, LibroDto.class);
 		libroService.save(libroDto);
@@ -53,17 +54,17 @@ public class LibroEndpoint {
 	@PUT
 	@Path("/")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String update(@FormParam("libro") String libroString) {
+	public String update(@FormParam("libro") String libroString) throws ServiceException {
 		Gson gson = new Gson();
 		LibroDto libroDto = gson.fromJson(libroString, LibroDto.class);
 		libroService.update(libroDto);
-		return "Guardado correctamente";
+		return "Actualizado correctamente";
 	}
 
 	@DELETE
 	@Path("/{id: \\d+}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteById(@PathParam("id") Long id) {
+	public String deleteById(@PathParam("id") Long id) throws ServiceException {
 		libroService.deleteById(id);
 		return "Borrado correctamente";
 	}

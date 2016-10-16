@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.xml.rpc.ServiceException;
 
 import uy.edu.ude.converter.CategoriaConverter;
 import uy.edu.ude.dao.CategoriaDao;
@@ -24,29 +25,49 @@ public class CategoriaService {
 		return categoriaDtos;
 	}
 
-	public void save(CategoriaDto categoriaDto) {
-		Categoria categoria = CategoriaConverter.toEntity(categoriaDto);
-		categoriaDao.save(categoria);
+	public void save(CategoriaDto categoriaDto) throws ServiceException {
+		try {
+			Categoria categoria = CategoriaConverter.toEntity(categoriaDto);
+			categoriaDao.save(categoria);
+		} catch (Exception e) {
+			throw new ServiceException("Error al guardar", e);
+		}
 	}
 
-	public void delete(CategoriaDto categoriaDto) {
-		Categoria categoria = CategoriaConverter.toEntity(categoriaDto);
-		categoriaDao.delete(categoria);
+	public void delete(CategoriaDto categoriaDto) throws ServiceException {
+		try {
+			Categoria categoria = CategoriaConverter.toEntity(categoriaDto);
+			categoriaDao.delete(categoria);
+		} catch (Exception e) {
+			throw new ServiceException("Error al borrar", e);
+		}
 	}
 
-	public void update(CategoriaDto categoriaDto) {
-		Categoria categoria = CategoriaConverter.toEntity(categoriaDto);
-		categoriaDao.update(categoria);
+	public void update(CategoriaDto categoriaDto) throws ServiceException {
+		try {
+			Categoria categoria = CategoriaConverter.toEntity(categoriaDto);
+			categoriaDao.update(categoria);
+		} catch (Exception e) {
+			throw new ServiceException("Error al actualizar", e);
+		}
 	}
 
-	public CategoriaDto findById(Long id) {
-		Categoria categoria = categoriaDao.findById(id);
-		CategoriaDto categoriaDto = CategoriaConverter.toDto(categoria);
-		return categoriaDto;
+	public CategoriaDto findById(Long id) throws ServiceException {
+		try {
+			Categoria categoria = categoriaDao.findById(id);
+			CategoriaDto categoriaDto = CategoriaConverter.toDto(categoria);
+			return categoriaDto;
+		} catch (Exception e) {
+			throw new ServiceException("Error al obtener recurso", e);
+		}
 	}
 
-	public void deleteById(Long id) {
-		categoriaDao.deleteById(id);
+	public void deleteById(Long id) throws ServiceException {
+		try {
+			categoriaDao.deleteById(id);
+		} catch (Exception e) {
+			throw new ServiceException("Error al borrar el recurso", e);
+		}
 	}
 
 }
