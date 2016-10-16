@@ -1,0 +1,15 @@
+INSERT INTO categoria (id,nombre) VALUES (1, 'Novela');
+INSERT INTO categoria (id,nombre) VALUES (2, 'Sci-fi');
+INSERT INTO categoria (id,nombre) VALUES (3, 'Aventura');
+INSERT INTO categoria (id,nombre) VALUES (4, 'Misterio');
+INSERT INTO categoria (id,nombre) VALUES (5, 'Infantil');
+INSERT INTO libro (id,nombre,codigo,cantidad,id_categoria) VALUES (1, 'Cien años de soledad', 'NOV01',10,1);
+INSERT INTO libro (id,nombre,codigo,cantidad,id_categoria) VALUES (2, 'Harry Potter Serie', 'AVEN01',10,3);
+INSERT INTO libro (id,nombre,codigo,cantidad,id_categoria) VALUES (3, 'El principito', 'INF01',10,5);
+INSERT INTO libro (id,nombre,codigo,cantidad,id_categoria) VALUES (4, 'El ingenioso hidalgo Don Quijote de la Mancha', 'NOV02',12,1);
+INSERT INTO libro (id,nombre,codigo,cantidad,id_categoria) VALUES (5, 'El diario de Ana Frank', 'NOV03',4,1);
+INSERT INTO libro (id,nombre,codigo,cantidad,id_categoria) VALUES (6, 'El código Da Vinci', 'MIS01',10,4);
+INSERT INTO libro (id,nombre,codigo,cantidad,id_categoria) VALUES (7, 'El Perfume', 'NOV04',2,1);
+INSERT INTO libro (id,nombre,codigo,cantidad,id_categoria) VALUES (8, 'El señor de los anillos', 'AVEN01',10,4);
+INSERT INTO libro (id,nombre,codigo,cantidad,id_categoria) VALUES (9, 'Crónica de una muerte anunciada', 'NOV05',12,1);
+INSERT INTO libro (id,nombre,codigo,cantidad,id_categoria) VALUES (10, 'El juego de Ender', 'SCI01',6,2);
