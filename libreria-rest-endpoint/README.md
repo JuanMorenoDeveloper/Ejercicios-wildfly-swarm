@@ -1,26 +1,29 @@
 # libreria-rest-endpoint
 Servidor Rest de ejemplo con wildfly swarm, se usa para administrar datos de inventario de una libreria.
 
-Compilación del servidor:
+##Compilación del servidor:
 
 Con maven instalado y java 8, en la carpeta donde esta el archivo pom.xml se ejecuta el siguiente comando:
+
 mvn clean install
+
 el artefacto se genera en la carpeta target
 
-Ejecución del servidor:
+##Ejecución del servidor:
 	
 En la consola del sistema con java 8 instalado ejecutar el siguiente comando:
+
 java -jar libreria-endpoint-swarm.jar 
 
 El puerto por defecto es el 8080, si se desea cambiar el puerto se puede especificar en la línea de comandos:
 
 java -jar libreria-endpoint-swarm.jar -Dswarm.http.port=XXXX
 
-URL disponibles
+##URL disponibles
 	http://localhost:8080/v1/libro/
 	http://localhost:8080/v1/categoria/
 
-Métodos disponibles:
+##Métodos disponibles:
 GET “/” Devuelve la lista completa de objetos, ejemplo: 
 	Petición:  http://localhost:8080/v1/libro/
 	Respuesta:[{"id":1,"nombre":"Cien años de soledad","codigo":"NOV01","cantidad":10,"categoria":{"id":1,"nombre":"Novela"}},{"id":2,"nombre":"Harry Potter Serie","codigo":"AVEN01","cantidad":10,"categoria":{"id":3,"nombre":"Aventura"}},{"id":3,"nombre":"El principito","codigo":"INF01","cantidad":10,"categoria":{"id":5,"nombre":"Infantil"}}]
