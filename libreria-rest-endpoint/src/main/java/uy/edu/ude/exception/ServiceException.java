@@ -2,7 +2,7 @@ package uy.edu.ude.exception;
 
 import java.io.Serializable;
 
-public class ServiceException extends RuntimeException implements Serializable{
+public class ServiceException extends Exception implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

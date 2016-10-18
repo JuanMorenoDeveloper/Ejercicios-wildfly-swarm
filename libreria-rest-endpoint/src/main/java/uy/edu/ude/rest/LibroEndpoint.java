@@ -14,7 +14,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.jboss.logging.Logger;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import uy.edu.ude.dto.LibroDto;
 import uy.edu.ude.exception.ServiceException;
@@ -24,48 +27,65 @@ import uy.edu.ude.service.LibroService;
 @Stateless
 public class LibroEndpoint {
 
+	private final static Logger log = Logger.getLogger(LibroEndpoint.class);
+
 	@Inject
 	private LibroService libroService;
 
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<LibroDto> findAll() {
+	public List<LibroDto> findAll() throws ServiceException {
 		return libroService.findAll();
 	}
 
 	@GET
 	@Path("/{id: \\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public LibroDto getPersonaById(@PathParam("id") Long id) throws ServiceException {
+	public LibroDto getLibroById(@PathParam("id") Long id) throws ServiceException {
 		return libroService.findById(id);
 	}
 
 	@POST
 	@Path("/")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getPersonaById(@FormParam("libro") String libroString) throws ServiceException {
+	public String addLibro(@FormParam("libro") String libroString) {
 		Gson gson = new Gson();
-		LibroDto libroDto = gson.fromJson(libroString, LibroDto.class);
-		libroService.save(libroDto);
+		try {
+			LibroDto libroDto = gson.fromJson(libroString, LibroDto.class);
+			libroService.save(libroDto);
+		} catch (ServiceException | JsonSyntaxException e) {
+			log.error(e);
+			return "Error al guardar recurso";
+		}
 		return "Guardado correctamente";
 	}
 
 	@PUT
 	@Path("/")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String update(@FormParam("libro") String libroString) throws ServiceException {
-		Gson gson = new Gson();
-		LibroDto libroDto = gson.fromJson(libroString, LibroDto.class);
-		libroService.update(libroDto);
+	public String update(@FormParam("libro") String libroString) {
+		Gson gson = new Gson();		
+		try {
+			LibroDto libroDto = gson.fromJson(libroString, LibroDto.class);
+			libroService.update(libroDto);
+		} catch (ServiceException | JsonSyntaxException e) {
+			log.error(e);			
+			return "Error al actualizar";
+		}
 		return "Actualizado correctamente";
 	}
 
 	@DELETE
 	@Path("/{id: \\d+}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteById(@PathParam("id") Long id) throws ServiceException {
-		libroService.deleteById(id);
+	public String deleteById(@PathParam("id") Long id) {
+		try {
+			libroService.deleteById(id);
+		} catch (ServiceException e) {
+			log.error(e);
+			return "Error al borrar recurso";
+		}
 		return "Borrado correctamente";
 	}
 
